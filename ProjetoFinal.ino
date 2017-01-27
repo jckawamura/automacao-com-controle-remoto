@@ -1,16 +1,15 @@
 #include <IRremote.h>
 
 //portas
-int IRrec = 2;
-int led = 3;
+const byte IRrec = 2;
+const byte led = 3;
 
-int S1 = 4;
-int S2 = 5;
-int PWMMotor = 6;
+const byte S1 = 4;
+const byte S2 = 5;
+const byte PWMMotor = 6;
 //----------
 
 int V = 255;
-int A = 30;
 int frente = 1;
 int flagLed = 0;
 int flagMotor =0;
@@ -45,6 +44,18 @@ void loop() {
     case 0xA50:
       ligaMotor();
     break;
+    case 0x90:
+      aumentaVel();
+    break;
+    case 0x890:
+      diminuiVel();
+    break;
+    case 0x490:
+      setFrente();
+    break;
+    case 0xC90:
+      setTras();
+    break;
   }
   botaoControle = 0;
   digitalWrite(led, flagLed);
@@ -62,14 +73,18 @@ void loop() {
       analogWrite(PWMMotor, V);
     }
   }
+  else {
+    digitalWrite(S1, LOW);
+    digitalWrite(S2, LOW);
+  }
   
   delay(100);
 }
 void ligaMotor(){
-  if (flagLed==0)
-    flagLed = 1;
+  if (flagMotor==0)
+    flagMotor = 1;
   else
-    flagLed = 0;
+    flagMotor = 0;
 }
 void setFrente(){
   frente=1;
@@ -78,10 +93,12 @@ void setTras(){
   frente=0;
 } 
 void aumentaVel(){
-  V+=A;
+  if (V==180)
+    V=255;
 }
 void diminuiVel(){
-  V-=A;
+  if (V==255)
+    V=180;
 }
 void switchLed(){
   if (flagLed==0)

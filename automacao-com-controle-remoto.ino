@@ -4,18 +4,18 @@
 
 //portas
 const byte IRrec = 2;
-const byte led = 3;
+const byte led = 9;
 const byte S1 = 4;
 const byte S2 = 5;
 const byte PWMMotor = 6;
 
 //----------
 rgb_lcd lcd;
-int intensLuz = 150;
+int intensLuz = 200;
 int V = 255;
 int frente = 1;
 int flagLed = 0;
-int flagMotor =0;
+int flagMotor = 0;
 long int botaoControle;
 
 IRrecv irrecv(IRrec);
@@ -23,18 +23,17 @@ IRrecv irrecv(IRrec);
 decode_results results;
 
 void setup() {
-   Serial.begin(9600);
-   pinMode(S1, OUTPUT);
-   pinMode(S2, OUTPUT);
-   pinMode(PWMMotor, OUTPUT);
-   pinMode(led, OUTPUT);
-   lcd.begin(16, 2);
-   
   irrecv.enableIRIn(); // Start the receiver
+  pinMode(led, OUTPUT);   
+  Serial.begin(9600);
+  pinMode(S1, OUTPUT);
+  pinMode(S2, OUTPUT);
+  pinMode(PWMMotor, OUTPUT);
+  pinMode(led, OUTPUT);
+  lcd.begin(16, 2);
 }
 
 void loop() {
-
 
   if (irrecv.decode(&results)) {
     Serial.println(results.value, HEX);
@@ -60,28 +59,30 @@ void loop() {
     case 0xC90:
       setTras();
     break;
-    case :
+    case 0xCD0:
       aumentaBrilho();
     break;
-    case :
+    case 0x2D0:
       diminuiBrilho();
     break;
-    case :
+    case 0x70:
       onLCD();
     break;
-    case :
+    case 0x290:
       offLCD();
     break;
-    case :
+    case 0x10:
       setMessage(0);
     break;
-    case :
+    case 0x810:
       setMessage(1);
     break;
   }
   botaoControle = 0;
   if(flagLed)
-    digitalWrite(led, intensLuz);
+    analogWrite(led, intensLuz);
+  else
+    digitalWrite(led, 0);
   if(flagMotor==1){
     if(frente==1){
       //frente
@@ -101,9 +102,9 @@ void loop() {
     digitalWrite(S2, LOW);
   }
   
-  delay(100);
+  delay(100); 
 }
-void onoffaMotor(){
+void onoffMotor(){
   if (flagMotor==0)
     flagMotor = 1;
   else
@@ -136,8 +137,8 @@ void aumentaBrilho(){
 }
 void diminuiBrilho(){
   intensLuz -= 50;
-  if (intensLuz<=100)
-    intensLuz = 100;
+  if (intensLuz<=50)
+    intensLuz = 50;
 }
 void setMessage(int message){
   switch(message){
@@ -149,9 +150,10 @@ void setMessage(int message){
     break;
   }
 }
-void onLCD{
+void onLCD(){
   lcd.display();
 }
-void offLCD{
+void offLCD(){
   lcd.noDisplay();
+  lcd.setRGB(0, 0, 0);
 }

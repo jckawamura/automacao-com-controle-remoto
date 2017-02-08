@@ -2,6 +2,28 @@
 #include <Wire.h>
 #include "rgb_lcd.h"
 
+//configuração controle
+const long int botaoLed = 0xA90;
+const long int botaoLedUp = 0xCD0;
+const long int botaoLedDown = 0x2D0;
+const long int botaoMotor = 0xA50;
+const long int botaoMotorUp = 0x90;
+const long int botaoMotorDown = 0x890;
+const long int botaoMotorFrente = 0x490;
+const long int botaoMotorTras = 0xC90;
+const long int botaoLCDOn = 0x70;
+const long int botaoLCDOff = 0x290;
+const long int botaoMsg1 = 0x10;
+const long int botaoMsg2 = 0x810;
+const long int botaoMsg3 = 0x410;
+const long int botaoMsg4 = 0xC10;
+const long int botaoMsg5 = 0x210;
+const long int botaoMsg6 = 0xA10;
+const long int botaoMsg7 = 0x610;
+const long int botaoMsg8 = 0xE10;
+const long int botaoMsg9 = 0x110;
+const long int botaoMsg0 = 0x910;
+
 //portas
 const byte IRrec = 2;
 const byte led = 9;
@@ -41,41 +63,65 @@ void loop() {
     irrecv.resume(); // Permite a entrada do próximo valor
   }
   switch(botaoControle){
-    case 0xA90:
+    case botaoLed:
       onoffLed();
     break;
-    case 0xA50:
+    case botaoMotor:
       onoffMotor();
     break;
-    case 0x90:
+    case botaoMotorUp:
       aumentaVel();
     break;
-    case 0x890:
+    case botaoMotorDown:
       diminuiVel();
     break;
-    case 0x490:
+    case botaoMotorFrente:
       setFrente();
     break;
-    case 0xC90:
+    case botaoMotorTras:
       setTras();
     break;
-    case 0xCD0:
+    case botaoLedUp:
       aumentaBrilho();
     break;
-    case 0x2D0:
+    case botaoLedDown:
       diminuiBrilho();
     break;
-    case 0x70:
+    case botaoLCDOn:
       onLCD();
     break;
-    case 0x290:
+    case botaoLCDOff:
       offLCD();
     break;
-    case 0x10:
+    case botaoMsg1:
       setMessage(0);
     break;
-    case 0x810:
+    case botaoMsg2:
       setMessage(1);
+    break;
+    case botaoMsg3:
+      setMessage(2);
+    break;
+    case botaoMsg4:
+      setMessage(3);
+    break;
+    case botaoMsg5:
+      setMessage(4);
+    break;
+    case botaoMsg6:
+      setMessage(5);
+    break;
+    case botaoMsg7:
+      setMessage(6);
+    break;
+    case botaoMsg8:
+      setMessage(7);
+    break;
+    case botaoMsg9:
+      setMessage(8);
+    break;
+    case botaoMsg0:
+      setMessage(9);
     break;
   }
   botaoControle = 0;
@@ -117,12 +163,12 @@ void setTras(){
   frente=0;
 } 
 void aumentaVel(){
-  if (V==180)
+  if (V==100)
     V=255;
 }
 void diminuiVel(){
   if (V==255)
-    V=180;
+    V=100;
 }
 void onoffLed(){
   if (flagLed==0)
@@ -131,29 +177,89 @@ void onoffLed(){
     flagLed = 0;
 }
 void aumentaBrilho(){
-  intensLuz += 50;
+  intensLuz += 100;
   if (intensLuz>=255)
     intensLuz = 255;
 }
 void diminuiBrilho(){
-  intensLuz -= 50;
-  if (intensLuz<=50)
-    intensLuz = 50;
+  intensLuz -= 100;
+  if (intensLuz<=20)
+    intensLuz = 20;
 }
 void setMessage(int message){
   switch(message){
-    case 0:
-      lcd.print("hello, world!");
+    case 0: {
+      lcd.clear();
+      lcd.print("Disponivel");
+      lcd.setRGB(0, 255, 0);
+    }
     break;
-    case 1:
-      lcd.print("test");
+    case 1: {
+      lcd.clear();
+      lcd.print("Ocupado");
+      lcd.setRGB(255, 0, 0);
+    }
+    break;
+    case 2: {
+      lcd.clear();
+      lcd.print("Estudando");
+      lcd.setRGB(0, 0, 255);
+    }
+    break;
+    case 3: {
+      lcd.clear();
+      lcd.print("No Mercado");
+      lcd.setRGB(255, 255, 0);
+    }
+    break;
+    case 4: {
+      lcd.clear();
+      lcd.print("Na Festa!!! xD");
+      lcd.setRGB(255, 0, 255);
+    }
+    break;
+    case 5: {
+      lcd.clear();
+      lcd.print("Jogando Online");
+      lcd.setCursor(0, 1);
+      lcd.print("(Nao Tem Pause)");
+      lcd.setRGB(255, 128, 0);
+    }
+    break;
+    case 6: {
+      lcd.clear();
+      lcd.print("No Banho");
+      lcd.setRGB(0, 255, 255);
+    }
+    break;
+    case 7: {
+      lcd.clear();
+      lcd.print("Na Aula");
+      lcd.setRGB(0, 0, 128);
+    }
+    break;
+    case 8: {
+      lcd.clear();
+      lcd.print("Dormindo");
+      lcd.setCursor(0, 1);
+      lcd.print("ZZZzzzZZZ");
+      lcd.setRGB(128, 128, 128);
+    }
+    break;
+    case 9: {
+      lcd.clear();
+      lcd.print("Em reuniao");
+      lcd.setRGB(128, 64, 0);
+    }
     break;
   }
 }
 void onLCD(){
+  lcd.clear();
   lcd.display();
+  lcd.setRGB(255, 255, 255);
 }
 void offLCD(){
-  lcd.noDisplay();
+  lcd.clear();
   lcd.setRGB(0, 0, 0);
 }

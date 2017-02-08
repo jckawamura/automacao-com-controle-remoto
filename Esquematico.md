@@ -13,3 +13,6 @@ http://www.schematics.com/project/automacao-com-controle-remoto-47461/
 
 03/02/2017 v3
 - mudança da porta do LED de 3 para 9
+
+08/02/2017 v4
+- separação dos GNDs da fonte, do LED e do receptor IR para evitar interferência e mal funcionamento.

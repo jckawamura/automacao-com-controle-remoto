@@ -1,3 +1,4 @@
+//bibliotecas
 #include <IRremote.h>
 #include <Wire.h>
 #include "rgb_lcd.h"
@@ -45,23 +46,24 @@ IRrecv irrecv(IRrec);
 decode_results results;
 
 void setup() {
-  irrecv.enableIRIn(); // Start the receiver
-  pinMode(led, OUTPUT);   
-  Serial.begin(9600);
+  irrecv.enableIRIn(); // Inicializa receptor IR
+  Serial.begin(9600); //Inicializa serial
+  pinMode(led, OUTPUT);  
   pinMode(S1, OUTPUT);
   pinMode(S2, OUTPUT);
   pinMode(PWMMotor, OUTPUT);
   pinMode(led, OUTPUT);
-  lcd.begin(16, 2);
+  lcd.begin(16, 2); //Inicializa LCD
 }
 
 void loop() {
-
+  //Leitura do botão do controle
   if (irrecv.decode(&results)) {
     Serial.println(results.value, HEX);
     botaoControle = results.value;
-    irrecv.resume(); // Permite a entrada do próximo valor
+    irrecv.resume(); 
   }
+  //Seleciona função dependendo do botão apertado
   switch(botaoControle){
     case botaoLed:
       onoffLed();
@@ -124,12 +126,15 @@ void loop() {
       setMessage(9);
     break;
   }
-  botaoControle = 0;
+  botaoControle = 0; //Para não repetir a chamada de função
+  //Liga ou desliga led
   if(flagLed)
     analogWrite(led, intensLuz);
   else
     digitalWrite(led, 0);
+  //Liga ou desliga motor
   if(flagMotor==1){
+    //Decide direção do motor
     if(frente==1){
       //frente
       digitalWrite(S1, LOW);
@@ -143,6 +148,7 @@ void loop() {
       analogWrite(PWMMotor, V);
     }
   }
+  //desliga motor
   else {
     digitalWrite(S1, LOW);
     digitalWrite(S2, LOW);
@@ -150,42 +156,51 @@ void loop() {
   
   delay(100); 
 }
+//muda flag de ligado/desligado do motor
 void onoffMotor(){
   if (flagMotor==0)
     flagMotor = 1;
   else
     flagMotor = 0;
 }
+//muda flag de direção do motor
 void setFrente(){
   frente=1;
 }
+//muda flag de direção do motor
 void setTras(){
   frente=0;
 } 
+//aumenta velocidade do motor
 void aumentaVel(){
   if (V==100)
     V=255;
 }
+//diminui velocidade do motor
 void diminuiVel(){
   if (V==255)
     V=100;
 }
+//muda flag que liga ou desliga o LED
 void onoffLed(){
   if (flagLed==0)
     flagLed = 1;
   else
     flagLed = 0;
 }
+//aumenta brilho do LED
 void aumentaBrilho(){
   intensLuz += 100;
   if (intensLuz>=255)
     intensLuz = 255;
 }
+//diminui brilho do LED
 void diminuiBrilho(){
   intensLuz -= 100;
   if (intensLuz<=20)
     intensLuz = 20;
 }
+//passa mensagem para o LCD
 void setMessage(int message){
   switch(message){
     case 0: {
@@ -254,11 +269,13 @@ void setMessage(int message){
     break;
   }
 }
+//liga LCD
 void onLCD(){
   lcd.clear();
   lcd.display();
   lcd.setRGB(255, 255, 255);
 }
+//desliga LCD
 void offLCD(){
   lcd.clear();
   lcd.setRGB(0, 0, 0);

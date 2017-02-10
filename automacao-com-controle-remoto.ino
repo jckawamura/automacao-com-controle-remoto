@@ -48,12 +48,14 @@ decode_results results;
 void setup() {
   irrecv.enableIRIn(); // Inicializa receptor IR
   Serial.begin(9600); //Inicializa serial
+  lcd.begin(16, 2); //Inicializa LCD
+  //inicialização das portas
   pinMode(led, OUTPUT);  
   pinMode(S1, OUTPUT);
   pinMode(S2, OUTPUT);
   pinMode(PWMMotor, OUTPUT);
   pinMode(led, OUTPUT);
-  lcd.begin(16, 2); //Inicializa LCD
+  
 }
 
 void loop() {

@@ -19,4 +19,17 @@ O usuário poderá ligar, desligar e controlar a intensidade de um conjunto de l
 ## Instalação das bibliotecas
 - Faça o download das duas bibliotecas
 - Copie a pasta para o diretório de bibliotecas do Arduino (C:\Program Files (x86)\Arduino\libraries)
-- Exclua a seguinte biblioteca: /libraries/RobotIRremote
+- Exclua a seguinte biblioteca: \libraries\RobotIRremote
+
+## Comunicação com o LCD
+A comunicação com o LCD é feita pelo protocolo I2C que utiliza apenas 4 pinos: Vcc, Ground, SDA e SCL.
+Serial Data (SDA) é a porta utilizada para transferência de dados; Serial Clock (SCL) serve para temporização entre os dispositivos, de modo que a comunicação pela SDA possa ter confiabilidade.
+Para o endereçamento do dispositivo são utilizados 7 bits, portanto é possível comunicar 127 dispositivos utilizando esse protocolo. Além disso há um bit que indica se a operação é de escrita ou leitura.
+A comunicação é feita então utilizando as seguintes funções:
+
+| Função | Descrição |
+| ------ | ------ |
+| Wire.beginTransmission(endereço); | Define o dispositivo que receberá os dados |
+| Wire.write(memória); | Informa qual registrador do dispositivo será utilizado |
+| Wire.write(valor); | Envia o valor (sempre 1 byte) pela SDA para o dispositivo informado anteriormente |
+| Wire.endTransmission(); | Finaliza a operação, liberando o dispositivo e o barramento I2C para novas operações |

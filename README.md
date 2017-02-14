@@ -1,6 +1,15 @@
 # Automação de um ambiente com controle remoto
 Projeto final da disciplina de Laboratório de Microcontroladores e Aplicações desenvolvido por [Bruno Figueiredo](https://github.com/BrunoFig), [Gleno Mendes](https://github.com/gmpsmendes) e [Jorge Kawamura](https://github.com/jckawamura).
 
+## Índice
+1. [Proposta](https://github.com/jckawamura/automacao-com-controle-remoto#proposta)
+2. [Material](https://github.com/jckawamura/automacao-com-controle-remoto#material)
+3. [Vídeo de apresentação](https://github.com/jckawamura/automacao-com-controle-remoto#vídeo-de-apresentação)
+4. [Bibliotecas utilizadas](https://github.com/jckawamura/automacao-com-controle-remoto#bibliotecas-utilizadas)
+5. [Instalação das bibliotecas](https://github.com/jckawamura/automacao-com-controle-remoto#instalação-das-bibliotecas)
+6. [Comunicação com o LCD](https://github.com/jckawamura/automacao-com-controle-remoto#comunicação-com-o-lcd)
+7. [Configuração do controle remoto](https://github.com/jckawamura/automacao-com-controle-remoto#configuração-do-controle-remoto)
+
 ## Proposta
 O projeto tem como objetivo automatizar um ambiente com um Arduino. Será simulado um ambiente com luzes, um ventilador e um display LCD que são controlados por controle remoto infravermelho.
 O usuário poderá ligar, desligar e controlar a intensidade de um conjunto de leds, controlar a velocidade e a direção de um motor que simula um ventilador e definir uma mensagem de status pré-definidas (por exemplo: "Em aula", "Ocupado", "Disponível", "Em casa", "No mercado") a ser exibida em um display LCD.
@@ -36,6 +45,19 @@ A comunicação é feita então utilizando as seguintes funções:
 | Wire.write(memória); | Informa qual registrador do dispositivo será utilizado |
 | Wire.write(valor); | Envia o valor (sempre 1 byte) pela SDA para o dispositivo informado anteriormente |
 | Wire.endTransmission(); | Finaliza a operação, liberando o dispositivo e o barramento I2C para novas operações |
+
+## Configuração do controle remoto
+O mapeamento do controle é feito usando o Serial Monitor para reconhecer o hexadecimal associado ao botão.
+Execute o programa no Arduino e teste cada tecla do controle remoto com o Serial Monitor aberto. A cada vez que o receptor IR receber o sinal enviado pelo controle o Serial Monitor exibirá o hexadecimal correspondente. Identifique o  hexadecimal correspondente a cada botão e substitua nas constantes de configuração do controle. Por exemplo, se o botão de ligar o LED for identificado como A0A0A0A0, substitua
+```sh
+const long int botaoLed = 0xA90;
+```
+por
+
+```sh
+const long int botaoLed = 0xA0A0A0A0;
+```
+Repita o procedimento para o restante dos botões.
 
 
 

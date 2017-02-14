@@ -12,6 +12,9 @@ O usuário poderá ligar, desligar e controlar a intensidade de um conjunto de l
 - Motor elétrico
 - Display LCD
 
+## Vídeo de apresentação
+[![Apresentação do projeto](https://img.youtube.com/vi/Y13-LeeWbRk/0.jpg)](https://www.youtube.com/watch?edit=vd&v=Y13-LeeWbRk "Apresentação do projeto")
+
 ## Bibliotecas utilizadas
 - [Grove - LCD RGB Backlight](https://github.com/Seeed-Studio/Grove_LCD_RGB_Backlight)
 - [IRremote Arduino Library](https://github.com/z3t0/Arduino-IRremote)
@@ -33,3 +36,6 @@ A comunicação é feita então utilizando as seguintes funções:
 | Wire.write(memória); | Informa qual registrador do dispositivo será utilizado |
 | Wire.write(valor); | Envia o valor (sempre 1 byte) pela SDA para o dispositivo informado anteriormente |
 | Wire.endTransmission(); | Finaliza a operação, liberando o dispositivo e o barramento I2C para novas operações |
+
+
+

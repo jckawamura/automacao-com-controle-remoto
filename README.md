@@ -15,3 +15,8 @@ O usuário poderá ligar, desligar e controlar a intensidade de um conjunto de l
 ## Bibliotecas utilizadas
 - [Grove - LCD RGB Backlight](https://github.com/Seeed-Studio/Grove_LCD_RGB_Backlight)
 - [IRremote Arduino Library](https://github.com/z3t0/Arduino-IRremote)
+
+## Instalação das bibliotecas
+- Faça o download das duas bibliotecas
+- Copie a pasta para o diretório de bibliotecas do Arduino (C:\Program Files (x86)\Arduino\libraries)
+- Exclua a seguinte biblioteca: /libraries/RobotIRremote

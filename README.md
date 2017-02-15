@@ -8,8 +8,8 @@ Projeto final da disciplina de Laboratório de Microcontroladores e Aplicações
 4. [Bibliotecas utilizadas](https://github.com/jckawamura/automacao-com-controle-remoto#bibliotecas-utilizadas)
 5. [Instalação das bibliotecas](https://github.com/jckawamura/automacao-com-controle-remoto#instalação-das-bibliotecas)
 6. [Comunicação com o LCD](https://github.com/jckawamura/automacao-com-controle-remoto#comunicação-com-o-lcd)
-7. [Configuração do controle remoto](https://github.com/jckawamura/automacao-com-controle-remoto#configuração-do-controle-remoto)
 7. [Comunicação com o sensor IR](https://github.com/jckawamura/automacao-com-controle-remoto#comunicação-com-o-sensor-ir)
+8. [Configuração do controle remoto](https://github.com/jckawamura/automacao-com-controle-remoto#configuração-do-controle-remoto)
 
 ## Proposta
 O projeto tem como objetivo automatizar um ambiente com um Arduino. Será simulado um ambiente com luzes, um ventilador e um display LCD que são controlados por controle remoto infravermelho.

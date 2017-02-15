@@ -9,6 +9,7 @@ Projeto final da disciplina de Laboratório de Microcontroladores e Aplicações
 5. [Instalação das bibliotecas](https://github.com/jckawamura/automacao-com-controle-remoto#instalação-das-bibliotecas)
 6. [Comunicação com o LCD](https://github.com/jckawamura/automacao-com-controle-remoto#comunicação-com-o-lcd)
 7. [Configuração do controle remoto](https://github.com/jckawamura/automacao-com-controle-remoto#configuração-do-controle-remoto)
+7. [Comunicação com o sensor IR](https://github.com/jckawamura/automacao-com-controle-remoto#comunicação-com-o-sensor-ir
 
 ## Proposta
 O projeto tem como objetivo automatizar um ambiente com um Arduino. Será simulado um ambiente com luzes, um ventilador e um display LCD que são controlados por controle remoto infravermelho.
@@ -45,6 +46,11 @@ A comunicação é feita então utilizando as seguintes funções:
 | Wire.write(memória); | Informa qual registrador do dispositivo será utilizado |
 | Wire.write(valor); | Envia o valor (sempre 1 byte) pela SDA para o dispositivo informado anteriormente |
 | Wire.endTransmission(); | Finaliza a operação, liberando o dispositivo e o barramento I2C para novas operações |
+
+## Comunicação com o sensor IR
+A comunicação do sensor IR é feita pelo protocolo NEC que utiliza apenas 3 pinos, sendo eles: Vcc, Ground e Out.
+O pino Out é o responsável pela transmissão dos dados interpretados pelo receptor IR, de modo que é ele que será lido pelo arduino para se saber qual botão foi pressionado.
+O protocolo Nec, também conhecido como formato japonês, utiliza uma frequência transmissora de 38 kHz e pulsos de codificação a distância. O protocolo faz uso de 8 bits de endereçamento com 8 bits de comando com um tempo entre os bits 1.12 ms ou 2.25 ms.
 
 ## Configuração do controle remoto
 O mapeamento do controle é feito usando o Serial Monitor para reconhecer o hexadecimal associado ao botão.
